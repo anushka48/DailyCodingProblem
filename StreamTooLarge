@@ -1,0 +1,15 @@
+#June 16, 2022
+
+#This problem was asked by Facebook.
+
+# Given a stream of elements too large to store in memory, 
+# pick a random element from the stream with uniform probability.
+
+#Two cases:
+#multiple passes through input stream allowed? 
+  # 1. Then use one pass to count the number of elements,
+  # 2. randomly generate a number (using Random package or some equivalent)
+  # 3. Use second pass to grab the item at that number
+  
+#single pass through input stream only?
+  # use Reservoir Sampling, but with a sample size of 1

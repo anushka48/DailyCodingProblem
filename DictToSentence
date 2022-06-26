@@ -1,0 +1,49 @@
+#June 21, 2022
+
+# Given a dictionary of words and a string made up of those words (no spaces), 
+# return the original sentence in a list. If there is more than one possible reconstruction, return any of them. If there is no possible reconstruction, then return null.
+# For example, given the set of words 'quick', 'brown', 'the', 'fox', and the string 
+# "thequickbrownfox", you should return ['the', 'quick', 'brown', 'fox'].
+# Given the set of words 'bed', 'bath', 'bedbath', 'and', 'beyond', and the string 
+# "bedbathandbeyond", return either ['bed', 'bath', 'and', 'beyond] or ['bedbath', 'and', 'beyond'].
+
+#Brute Force - just iterate character by character, comparing sequences to entries in the dictionary
+#could use hash maps to organize the words by letter, a little optimization
+#or use word lengths to help recognizing when a potential word can be formed and which part of the
+#size-ordered dictionary to look into
+
+#Testing: the,brown,quick,fox/thequickbrownfox
+
+arrOfStrings = (input("Enter comma-separated list of words for your dictionary: ")).split(",")
+stringIn = input("Enter your string made up of those words: ")
+dictOfWords = dict()  
+sentence = list()
+def initializeDict(arrOfStrings):
+  for word in arrOfStrings:
+    #organize by side
+    if len(word) in dictOfWords:
+      #the dictionary has an entry
+      dictOfWords[len(word)].append(word)
+    else:
+      #make a new list corresponding to that length
+      dictOfWords[len(word)] = list()
+      dictOfWords[len(word)].append(word)
+
+#initialize dictionary, using pair: lengthOfWord, wordsThatClassify 
+initializeDict(arrOfStrings)
+print(dictOfWords)
+#process string char by char and growing currWordLen, stopping at any lengths that are keys in the dictionary
+currWord = ""
+
+for idx in range(len(stringIn)):
+  currWord += stringIn[idx]
+  if (len(currWord) in dictOfWords):
+    for word in dictOfWords[len(currWord)]:
+      if (word == currWord):
+        sentence.append(word)
+        currWord = ""
+        #stringIn = stringIn[idx+1:]
+        idx = 0
+        break
+      
+print(sentence)

@@ -1,0 +1,16 @@
+#June 9th, 2022
+
+# This problem was asked by Apple.
+#Implement a job scheduler which takes in a function f and an integer n, and calls f after n milliseconds.
+
+import time
+
+def arbitrary():
+  print("done.")
+  return
+  
+def scheduler(f, n):
+  time.sleep(n/1000)
+  f()
+  
+print(scheduler(arbitrary, 5000))

@@ -1,0 +1,33 @@
+#Python implementation of a linked list
+
+class Node():
+  value = 0
+  next = None
+  
+  #initialize by both, with defaults in place
+  def __init__(self, newValue = 0, newNext = None):
+    self.value = newValue
+    self.next = newNext
+  
+  def set_value(self, newVal):
+    self.value = newVal
+    
+  def set_next(self, newNode):
+    self.next = newNode
+
+  def print_node(self):
+    print("Node: [value = " + str(self.value) + "]" + "[next = " + str(self.next) + "]")
+
+
+#Testing
+tail = Node()
+mid = Node(1)
+
+head = Node(2, tail)
+head.print_node()
+head.next = mid
+head.print_node()
+
+
+  
+  

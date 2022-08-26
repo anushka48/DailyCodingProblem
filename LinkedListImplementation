@@ -9,6 +9,7 @@ class Node():
     self.value = newValue
     self.next = newNext
   
+  #unn
   def set_value(self, newVal):
     self.value = newVal
     
@@ -18,16 +19,41 @@ class Node():
   def print_node(self):
     print("Node: [value = " + str(self.value) + "]" + "[next = " + str(self.next) + "]")
 
+  def print_list(head):
+    curr = head
+    while curr != None:
+      curr.print_node()
+      curr = curr.next
 
+  def reverse_list(head):
+    currNode = head
+    prevNode = None
+    while(currNode != None):=
+      #assigning three pointers to preserve necessary nodes
+      currNode = head
+      nextNode = head.next
+    
+      #reverse first node
+      currNode.next = prevNode
+    
+      #set all pointers
+      prevNode = currNode
+      currNode = nextNode
+      nextNode = currNode.next
+    
 #Testing
-tail = Node()
-mid = Node(1)
+head = Node(newValue = 1)
+node2 = Node(newValue = 2)
+node3 = Node(newValue = 3)
+tail = Node(newValue = None)
 
-head = Node(2, tail)
-head.print_node()
-head.next = mid
-head.print_node()
+head.next = node2
+node2.next = node3
+node3.next = tail
 
+head.print_list()
 
-  
-  
+head.reverse_list()
+
+head.print_list()
+

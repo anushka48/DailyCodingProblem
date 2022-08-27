@@ -1,0 +1,41 @@
+#Build a trie of the words
+#ex) de -> [deer, deal] from [dog, deer, deal]
+
+#you need a '$' or some kind of end token
+#at each node, you have an array of the next level
+#each character is input one at a time
+
+#start with the first array
+#recursive
+#ex: 
+          #X
+          #d
+    #o    #e
+    #g  #a  e
+    #$  #l  r
+        #$  $
+
+# a list of lists
+head = list()
+
+def makeTrie(listOfWords):
+  for word in listOfWords:
+    for char in word:
+      print("current letter: ", char)
+
+class Node: #node containing the list of the next level 
+  list my_chrs = list() #contains chars corresp. to each child
+  list my_nodes = list() #contains subtrees corresp. to each child
+  def __init__(listIn, chrIn):
+    self.my_list = listIn
+    # self.my_chr = chrIn
+
+head = new Node()
+
+def insert(char, node):
+  if (node.my_list):
+    if char in node.my_list:
+      insert()
+  else:
+    #insert
+    nodeList.append(char)

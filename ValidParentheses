@@ -13,49 +13,28 @@ class Solution(object):
         
         #if stack not exmpty, then parentheses invalid; else valid
         characters = {')':'(', '}':'{', ']':'['}
-        stack = Stack()
+        stack = list()
         for letter in s:
             if letter in characters.values():
               #if it's an opening brace
-                stack.push(letter)
-                print("printing now: ")
-                stack.print_stack()
+                stack.append(letter)
             elif (letter in characters.keys()):
               #if it's an closing brace
-                if not stack.is_empty():
-                    if (stack.peek() == characters[letter]):
-                        stack.pop()
+                if not len(stack) == 0:
+                    if (stack.pop() == characters[letter]):
+                        continue
                     else:
                       #the top of stack does not match current closing brace
                         return False
                 else:
-                  #stack is
+                  #stack is empty but closing brace found
                     return False
-        if stack.is_empty():
-            return True
+                    
+        if len(stack) == 0:
+          #ensuring opening braces were clsoed
+          return True
+        else:
+          return False
         
-        
-class Stack:
-    def __init__(self):
-        self.stack = []
-        self.size = 0
-    def push(self, val):
-        self.stack.append(val)
-        self.size+=1
-    def pop(self):
-        val = self.stack[-1]
-        del self.stack[-1]
-        self.size-=1
-        return val
-    def peek(self):
-        val = self.stack[self.size-1]
-        return val
-    def print_stack(self):
-        for i in range(len(self.stack) - 1, -1, -1):
-            print(self.stack[i])
-    def is_empty(self):
-        return (self.size == 0)
 
-solution = Solution()
-print(solution.isValid("[([]])"))
                 

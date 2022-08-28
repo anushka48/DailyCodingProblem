@@ -1,0 +1,32 @@
+# Problem: Given a string s, return the string after replacing every uppercase letter with the same lowercase letter.
+
+class Solution(object):
+    def toLowerCase(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        #3 solutions:
+        
+      #Simplest
+        # return s.lower()
+        
+      #Second simplest - lowest runtime
+        # s = list(s)
+        # for i in range(len(s)):
+        #     s[i] = s[i].lower()
+        # s = ''.join(s)
+        # return s
+        
+      #Fastest runtime - half as long as others
+        s = list(s)
+        for i in range(len(s)):
+          letter = s[i]
+          if ord(letter) >= ord('A') and ord(letter) <= ord('Z'):
+            #if capital
+            newOrd = ord(letter) + 32
+            s[i] = chr(newOrd)
+        s = ''.join(s)
+        return s
+solution = Solution()
+print(solution.toLowerCase("HelLo"))

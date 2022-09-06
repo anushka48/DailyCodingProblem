@@ -1,0 +1,53 @@
+class Queue():
+  def __init__(self):
+    self.queue = list()
+    self.size = 0
+    self.front = 0
+    self.back = 0
+  def enqueue(self, elem):
+    self.queue.append(elem)
+    self.size+=1
+    self.back+=1
+  def dequeue(self):
+    if (self.size > 0):
+      elem = self.queue[self.front]
+      del(self.queue[self.front])
+      self.size-=1
+      self.back-=1
+      return elem
+    else:
+      print("empty!")
+  def getSize(self):
+    return "size: ", self.size 
+  def printQueue(self):
+    for i in range(self.size):
+      print(self.queue[i])
+    print("-------")
+
+# Test 1 - For Queue class      
+# queue = Queue()
+# queue.enqueue(1)
+# queue.enqueue(2)
+# queue.enqueue(3)
+# queue.printQueue()
+# print(queue.getSize())
+# queue.dequeue()
+# print(queue.getSize())
+# queue.printQueue()
+# queue.enqueue(4)
+# queue.printQueue()
+# print(queue.getSize())
+# queue.dequeue()
+# queue.printQueue()
+# print(queue.getSize())
+# queue.dequeue()
+# queue.printQueue()
+# print(queue.getSize())
+# queue.dequeue()
+# queue.printQueue()
+# print(queue.getSize())
+# queue.dequeue()
+
+#Normal Simple Queue.
+#Circular Queue.
+#Double Ended Queue.

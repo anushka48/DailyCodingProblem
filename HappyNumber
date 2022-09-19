@@ -1,0 +1,30 @@
+import math
+class Solution(object):
+    def squareDigits(self, n):
+        #print(n)
+        digits = list()
+        while n >= 1:
+            digits.append(n%10)
+            n = n//10
+        final = sum((math.pow(digits[i], 2) for i in range(len(digits))))
+        return final
+    
+    def isHappy(self, n):
+        """
+        :type n: int
+        :rtype: bool
+        """
+        # try catch?
+        done = []
+        sqrd = self.squareDigits(n)
+        while (sqrd != 1):
+            if (sqrd in done):
+                return False
+            else:
+                done.append(sqrd)
+            sqrd = self.squareDigits(sqrd)
+        return True
+                
+        
+            
+    

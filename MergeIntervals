@@ -1,0 +1,30 @@
+#Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, and return an array of 
+#the non-overlapping intervals that cover all the intervals in the input.
+
+ 
+class Solution(object):
+      def merge(self, intervals):
+        """
+        :type intervals: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        merged = list()
+        # Sort
+        intervals.sort(key = lambda list: list[0])
+        
+        # then merge
+        #   for [a,b] and [c,d], if c <= b, then overlap
+        # merged and intervals
+        
+        merged.append(intervals[0])
+        
+        for i in range(1, len(intervals)):
+                #overlap between last inducted interval 
+                curr_intvl = intervals[i]
+                if curr_intvl[0] <= merged[len(merged)-1][1]:
+                    # current interval needs to be extended
+                    if curr_intvl[1] > merged[len(merged)-1][1]:
+                        merged[len(merged)-1][1] = curr_intvl[1]
+                else:
+                    merged.append(curr_intvl)
+        return merged

@@ -1,0 +1,20 @@
+def DFS(key, values, inMap):
+    #DFS uses stack
+    print(key)
+    visited[vertices.index(key)] = 1
+    for value in values:
+        idx_of_value = vertices.index(value)
+        if visited[idx_of_value] == 0:
+            DFS(value, inMap[value], inMap)
+            
+#Testing:
+inMap = {
+            "A": ["B", "C"], 
+            "B": ["A", "D", "E"],
+            "C": ["A", "E"],
+            "D": ["B", "E", "F"],
+            "E": ["B", "C", "D", "F"],
+            "F": ["D", "E"]}
+visited = [0]*len(inMap.keys())
+vertices = list(inMap.keys())
+DFS(vertices[0], inMap[vertices[0]], inMap)         

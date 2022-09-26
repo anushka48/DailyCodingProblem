@@ -1,0 +1,27 @@
+from queue import Queue
+def BFS(inMap):
+    queue = Queue()
+    visited = [0]*len(inMap.keys())
+    vertices = list(inMap.keys())
+    queue.put(vertices[0])
+    visited[0] = 1
+    while (not queue.empty()):
+        current = queue.get()
+        print(current)
+        for value in inMap[current]:
+            if (visited[vertices.index(value)] == 0):
+                visited[vertices.index(value)] = 1
+                queue.put(value)
+                
+        
+        
+#Testing: 
+inMap = {
+            "A": ["B", "C"], 
+            "B": ["A", "D", "E"],
+            "C": ["A", "E"],
+            "D": ["B", "E", "F"],
+            "E": ["B", "C", "D", "F"],
+            "F": ["D", "E"]}
+BFS(inMap)
+  

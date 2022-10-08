@@ -1,0 +1,24 @@
+class SpecialSort(str):
+    def __lt__(num1, num2):
+        if (num1+num2 > num2+num1):
+            return True
+        else:
+            return False
+    
+class Solution(object):
+    def largestNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: str
+        """
+        fin = str()
+        nums = map(str, nums)
+        
+        nums = sorted(nums, key=SpecialSort)
+        for i in range(len(nums)):
+            fin+=nums[i]
+        
+        if len(fin) == fin.count('0'):
+            fin = '0'
+        return fin
+   

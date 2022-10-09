@@ -42,3 +42,6 @@ class Solution(object):
             maxes.append(currMax)
             
         return maxes
+
+#Optimiz: Using a deque, for each current number, hold on to numbers that are greater than current number and delete any numbers that 
+#are out of the window from the left. The first/leftmost number still in the queue will be appended to out since it’s a local max.

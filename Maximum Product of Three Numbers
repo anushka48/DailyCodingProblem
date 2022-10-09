@@ -1,0 +1,13 @@
+class Solution(object):
+    def maximumProduct(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        nums = sorted(nums)
+        #greatest involving just highest 3
+        greatest_high = nums[len(nums) - 1] * nums[len(nums) - 2] * nums[len(nums) - 3]
+        greatest_neg = 0
+        if (nums[0] < 0 and nums[1] < 0):
+            greatest_neg = nums[0] * nums[1] * nums[len(nums) - 1]
+        return max(greatest_high, greatest_neg)

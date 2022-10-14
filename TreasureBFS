@@ -1,0 +1,32 @@
+# An island is represented as a matrix
+# Each space can be four possible things:
+# E - empty space
+# P - person
+# T - treasure
+# S - snake
+# Goal: identify the coordinates of the person who finds the treasure first. 
+# People cannot walk over snakes. There is only one treasure, but it may not exist. 
+# There can be multiple people. There can be multiple or zero snakes.
+
+def findTreasure(matrix):
+    if not('P' in matrix and 'T' in matrix):
+        return (-1,-1)
+    queue = list()
+    coord = (-1,-1)
+    
+    for (i in range(len(matrix))):
+        for (j in range(len(matrix)):
+             if (matrix[i][j] == 'T'):
+                coord = (i,j, 0)
+    queue.append(coord)
+    
+    while queue:
+        coord = queue[0]
+        if coord[0] < 0 or coord[0] >= len(matrix) or coord[1] >= len(matrix) or coord[1] < 0 or matrix[coord[0]][coord[1]] == 'S' or matrix[coord[0]][coord[1]] == 'V':
+             continue
+        if matrix[coord[0]][coord[1]] == 'P':
+             return coord
+        else:
+             queue.extend([(coord[0]-1, coord[1], coord[2] + 1), (coord[0], coord[1]+1, , coord[2] + 1), (coord[0]+1, coord[1]), (coord[0], coord[1]-1)])
+        matrix[coord[0]][coord[1]] = 'V'
+        queue.pop(0)

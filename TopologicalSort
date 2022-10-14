@@ -1,0 +1,31 @@
+#keep in mind that prereq [2,0] means to take course 2, you need to take course 0. So opposite notation as adj list
+def topSort(node, graph, visited, stack):
+        visited[node] = 1
+        for vertex in graph:
+            if node in graph[vertex]:
+                if visited[vertex] == 0:
+                    topSort(vertex, graph, visited, stack)
+        stack.append(node)
+        return stack
+                
+
+def help(numCourses, prerequisites):
+    stack = list()
+    visited = [0]*numCourses
+    graph = makeEdgeList(prerequisites)
+    for i in range(numCourses):
+            if visited[i] == 0:
+                stack = topSort(i, graph, visited, stack)
+    while stack:
+        print(stack.pop())
+                
+            
+def makeEdgeList(courses):
+        edgeList = dict()
+        
+        for course in courses:
+            if course[0] in edgeList:
+                edgeList[course[0]].append(course[1])
+            else:
+                edgeList[course[0]] = [course[1]]
+        return edgeList            

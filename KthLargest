@@ -1,0 +1,24 @@
+#Given an integer array nums and an integer k, return the kth largest element in the array.
+
+#Note that it is the kth largest element in the sorted order, not the kth distinct element.
+
+#You must solve it in O(n) time complexity.
+
+
+class Solution(object):
+    def findKthLargest(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        h = []
+        for num in nums:
+            #logn operation
+            num = num*-1
+            heappush(h, num)
+        i = 0
+        while i != k-1:
+            heappop(h)
+            i+=1
+        return heappop(h)*-1

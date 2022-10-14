@@ -1,0 +1,43 @@
+#There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. 
+#You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.
+
+#For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.
+#Return true if you can finish all courses. Otherwise, return false.
+
+
+
+class Solution(object):
+    #keep in mind that prereq [2,0] means to take course 2, you need to take course 0.       #So opposite notation as adj list
+    def topSort(self, node, graph, visited, stack):
+        visited[node] = 1
+        for vertex in graph:
+            if node in graph[vertex]:
+                if visited[vertex] == 0:
+                    self.topSort(vertex, graph, visited, stack)
+        stack.append(node)
+        return stack
+                
+
+    def canFinish(self, numCourses, prerequisites):
+        stack = list()
+        visited = [0]*numCourses
+        graph = self.makeEdgeList(prerequisites)
+        for i in range(numCourses):
+            if visited[i] == 0:
+                stack = self.topSort(i, graph, visited, stack)
+        top_order = stack[::-1]
+            
+        for prereq in prerequisites:
+            if (not top_order.index(prereq[1]) < top_order.index(prereq[0])):
+                return False
+        return True
+            
+    def makeEdgeList(self, courses):
+        edgeList = dict()
+        
+        for course in courses:
+            if course[0] in edgeList:
+                edgeList[course[0]].append(course[1])
+            else:
+                edgeList[course[0]] = [course[1]]
+        return edgeList            

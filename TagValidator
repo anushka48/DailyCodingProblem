@@ -1,0 +1,96 @@
+"""
+Given a string representing a code snippet, implement a tag validator to parse the code and return whether it is valid.
+
+A code snippet is valid if all the following rules hold:
+
+The code must be wrapped in a valid closed tag. Otherwise, the code is invalid.
+A closed tag (not necessarily valid) has exactly the following format : <TAG_NAME>TAG_CONTENT</TAG_NAME>. Among them, <TAG_NAME> is the start tag, and </TAG_NAME> is the end tag. The TAG_NAME in start and end tags should be the same. A closed tag is valid if and only if the TAG_NAME and TAG_CONTENT are valid.
+A valid TAG_NAME only contain upper-case letters, and has length in range [1,9]. Otherwise, the TAG_NAME is invalid.
+A valid TAG_CONTENT may contain other valid closed tags, cdata and any characters (see note1) EXCEPT unmatched <, unmatched start and end tag, and unmatched or closed tags with invalid TAG_NAME. Otherwise, the TAG_CONTENT is invalid.
+A start tag is unmatched if no end tag exists with the same TAG_NAME, and vice versa. However, you also need to consider the issue of unbalanced when tags are nested.
+A < is unmatched if you cannot find a subsequent >. And when you find a < or </, all the subsequent characters until the next > should be parsed as TAG_NAME (not necessarily valid).
+The cdata has the following format : <![CDATA[CDATA_CONTENT]]>. The range of CDATA_CONTENT is defined as the characters between <![CDATA[ and the first subsequent ]]>.
+CDATA_CONTENT may contain any characters. The function of cdata is to forbid the validator to parse CDATA_CONTENT, so even it has some characters that can be parsed as tag (no matter valid or invalid), you should treat it as regular characters.
+"""
+
+import re
+
+class Solution(object):
+    first = None
+    last = None
+    
+    def parseTag(self,tag, stack):
+        temp = tag
+        #if valid opening tag
+        if (re.search("<[A-Z]{1,9}>", temp)):                
+            tag = tag[tag.index("<")+1:tag.index(">")]
+            
+            #if first doesn't exist and there are extra letters before first 
+            if (not self.first and len(tag)+2 != len(temp)):
+                return False
+            
+            if (self.first == None):
+                self.first = tag
+
+            if (self.checkContent(temp[:temp.index("<")])):
+                stack.append(tag) #remove braces
+                return True
+            else:
+                return False
+            
+        #if valid closing tag
+        elif "</" in temp and self.checkContent(temp[:temp.index("</")]):
+                #is closing
+                temp = temp[temp.index("</"):]
+                tag = temp[temp.index("</")+2:temp[temp.index("</"):].index(">")]
+                if len(stack) > 0 and stack[-1] == tag:
+                    stack.pop()
+                    if (len(stack) == 0):
+                        self.last = tag
+                    return True
+                else:
+                    return False
+        else:
+            return False
+    
+    """
+    Checks if the content is valid, returns True if so, False otherwise
+    """
+    def checkContent(self, string): 
+        return not ("<" in string)
+    
+    def isValid(self, code):
+        """
+        :type code: str
+        :rtype: bool
+        """
+        # stack: hold all valid tags (opening)
+        # content: check if no "<" - if matches CDATA tag, then ignore
+        # parse_tag_name & check valid: check if tag is uppercase, len 1-9
+        current = str()
+        i = 0
+        j = 1
+        stack = list()
+        stillValid = True
+        
+        while(i < len(code) and j < len(code)+1 and stillValid):
+            current = code[i:j]
+
+            #ignore CDATA, doesn't get pushed to stack
+            if (re.search('<!\[CDATA\[.*\]\]>', current) and self.first and not self.last):
+                i+=len(current)
+                j = i
+
+                #valid tag name
+            elif (re.search(".*<.*>", current) and not re.search('<!\[CDATA.*>', current)) :
+                stillValid = self.parseTag(current, stack)    
+                i+=len(current)
+                j = i
+            j+=1
+            if (self.last):
+                current = code[i:len(code)]
+            
+        if (len(stack)>0 or not self.first or (not self.first == self.last)) or len(current) > 0:
+            stillValid = False
+
+        return stillValid

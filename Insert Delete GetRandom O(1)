@@ -13,17 +13,17 @@ import random
 class RandomizedSet(object):
 
     def __init__(self):
-        self.elements = list()
+        self.elements = dict()
 
     def insert(self, val):
         """
         :type val: int
         :rtype: bool
         """
-        if val in self.elements:
+        if self.elements.get(val) == val:
             return False
         else:
-            self.elements.append(val)
+            self.elements[val] = val
             return True        
 
     def remove(self, val):
@@ -31,8 +31,8 @@ class RandomizedSet(object):
         :type val: int
         :rtype: bool
         """
-        if val in self.elements:
-            self.elements.remove(val)
+        if self.elements.get(val) == val:
+            self.elements.pop(val)
             return True
         else:
             return False
@@ -41,5 +41,5 @@ class RandomizedSet(object):
         """
         :rtype: int
         """
-        return random.choice(self.elements)
+        return random.choice(self.elements.keys())
         

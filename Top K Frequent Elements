@@ -1,0 +1,17 @@
+"""
+Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
+"""
+
+class Solution(object):
+
+    def topKFrequent(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        nums_map = Counter(nums)
+        sorted_nums = sorted(nums_map.keys(), key = lambda num: nums_map.get(num), reverse = True)
+        return sorted_nums[0:k]
+    
+     

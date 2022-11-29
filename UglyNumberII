@@ -1,0 +1,30 @@
+"""
+An ugly number is a positive integer whose prime factors are limited to 2, 3, and 5.
+
+Given an integer n, return the nth ugly number.
+"""
+
+import heapq
+class Solution(object):
+    def nthUglyNumber(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        #1, _2_, _3_, _4_, _5_, _6_, _8_, _9_, _10_, _12_, _15_, 16, _18_, _20_ 
+
+        #generate the nums
+        heap = [1]
+        nth = 0
+        uglies = [2,3,5]
+        
+        while nth < n-1:
+            num = heapq.heappop(heap)
+            # print("num: ", num)
+            for ugly in uglies:
+                if (not (num*ugly in heap)):
+                    heapq.heappush(heap, num*ugly)
+                    # print(num*ugly)
+            nth+=1
+        
+        return heapq.heappop(heap)

@@ -1,0 +1,32 @@
+"""
+https://leetcode.com/discuss/interview-question/380650/Bloomberg-or-Phone-Screen-or-Candy-Crush-1D
+Write a function to crush candy in one dimensional board. In candy crushing games, groups of like items are removed from the board. In this problem, any sequence of 3 or more like items should be removed and any items adjacent to that sequence should now be considered adjacent to each other. This process should be repeated as many time as possible. You should greedily remove characters from left to right.
+"""
+stack = list()
+st_len = len(stack)
+last = ""
+
+#push a letter to the stack
+#continuously check if length of stack >= 3
+#check if last three elements reduce
+
+def same(): #returns if crush needed seq = 3
+    st_len = len(stack)
+    if (st_len >= 3):
+        if stack[st_len-1] == stack[st_len-2] and stack[st_len-1] == stack[st_len-3]:
+            return True
+    return False
+
+def candyCrush(seq):
+    for letter in seq:
+        global last #tracks last crushed letter
+        if not(letter == last):
+            stack.append(letter)
+        if(same()):
+            for i in range(2):
+                stack.pop()
+            last = stack.pop()
+            
+    return stack
+        
+print(candyCrush('aaabbbacd'))

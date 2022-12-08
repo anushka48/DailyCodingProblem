@@ -1,0 +1,41 @@
+# Two binary trees are considered leaf-similar if their leaf value sequence is the same.
+
+# Return true if and only if the two given trees with head nodes root1 and root2 are leaf-similar.
+
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    leaves1 = []
+    leaves2 = []
+
+    def DFS(self, root, listName):
+        if (root == None):
+            return
+        
+        self.DFS(root.left, listName)
+
+        if (root.left == None and root.right == None):
+            listName.append(root.val)
+
+        self.DFS(root.right, listName) 
+
+    def leafSimilar(self, root1, root2):
+        self.leaves1 = []
+        self.leaves2 = []
+        """
+        :type root1: TreeNode
+        :type root2: TreeNode
+        :rtype: bool
+        """
+
+        self.DFS(root1, self.leaves1)
+        self.DFS(root2, self.leaves2)
+
+        if (self.leaves1 == self.leaves2):
+            return True
+        else:
+            return False

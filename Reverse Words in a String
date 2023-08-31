@@ -16,14 +16,19 @@ class Solution(object):
         #for each element, ensure it's not empty
         #if not, then push to stack
         #pop from the stack backwards, appending a space each time
-
+        
         s = s.split(" ")
+        out = ""
         stack = []
         for i in range(len(s)):
             if (s[i] != ""):
-                stack.insert(0, s[i])
-                stack.insert(0, " ")
+                stack.append(s[i])
+        
+        for i in range(len(stack)-1, 0, -1):
+            out += stack[i] + " "
+            
 
-        return "".join(stack[1:])
+        out += stack[0]
+        return out
         
         

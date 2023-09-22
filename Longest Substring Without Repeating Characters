@@ -1,0 +1,23 @@
+# Given a string s, find the length of the longest substring without repeating characters.
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        
+        maxLen = 0
+        ptr1 = 0
+        ptr2 = 0
+        while ptr2 != len(s):
+            window = s[ptr1:ptr2+1]
+            window_ctr = Counter(window)
+            # no duplicates? expand window right
+            if len(window) == len(window_ctr):
+                maxLen = max(len(window), maxLen)
+                ptr2+=1
+            # duplicate? shrink window left
+            else: 
+                ptr1+=1
+        
+        return maxLen

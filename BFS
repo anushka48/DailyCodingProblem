@@ -24,4 +24,17 @@ inMap = {
             "E": ["B", "C", "D", "F"],
             "F": ["D", "E"]}
 BFS(inMap)
-  
+
+
+# Tree-based BFS
+def BFS(self):
+        queue = list()
+        queue.append(self)
+        while len(queue) > 0:
+            curr = queue.pop(0)
+            if (curr == None or curr.visited == True):
+                continue
+            print(curr.value)
+            curr.visited = True
+            for edge in curr.edges:
+                queue.append(edge)

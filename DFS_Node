@@ -1,0 +1,30 @@
+class Node:
+    def __init__(self, value = 0, edges = []):
+        self.value = value
+        self.edges = edges
+        self.visited = False
+
+    def addEdges(self, edge):
+        self.edges = edge
+
+
+    def DFS(self):
+        if self == None or self.visited == True:
+            return
+        self.visited = True
+        print(self.value)
+        for edge in self.edges:
+            edge.DFS()
+
+#Test
+node0 = Node(0)
+node1 = Node(1)
+node2 = Node(2)
+node3 = Node(3)
+node4 = Node(4)
+node5 = Node(5)
+node0.addEdges([node1, node4, node5])
+node1.addEdges([node3, node4])
+node2.addEdges([node1])
+node3.addEdges([node2,node4])
+node0.DFS()

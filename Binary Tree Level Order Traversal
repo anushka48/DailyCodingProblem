@@ -1,0 +1,39 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+# Given the root of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).
+import queue
+
+class Solution:
+    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        q = queue.Queue()
+        q.put([root])
+        trav = []
+        if (not root):
+            return trav
+        while (not q.empty()):
+            curr = q.get()
+            new = []
+            newVal = []
+            for item in curr:
+                if (item):
+                    if (item.left):
+                        new.append(item.left)
+                    if (item.right):
+                        new.append(item.right)
+                    newVal.append(item.val)
+            if (len(new) > 0):
+                q.put(new)
+            trav.append(newVal)
+            print(trav)
+        return trav
+
+    
+    

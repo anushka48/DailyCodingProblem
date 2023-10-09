@@ -1,0 +1,30 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+# Given the root of a binary search tree, and an integer k, return the kth smallest value (1-indexed) of all the values of the nodes in the tree.
+class Solution:
+    ctr = 0
+    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+        self.ctr = 0
+        return self.inOrder(root, k)
+
+    def inOrder(self, root, k):
+        if (not root):
+            return None
+
+        lt = self.inOrder(root.left, k)
+        if (lt != None):
+            return lt
+        
+        self.ctr+=1
+        if (self.ctr == k):
+            return root.val
+        
+        rt = self.inOrder(root.right, k)
+        if (rt != None):
+            return rt
+        

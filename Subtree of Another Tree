@@ -1,0 +1,26 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    bigTrav = []
+    subTrav = [] 
+    def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
+
+        self.bigTrav = []
+        self.subTrav = []
+        self.preOrder(root, self.bigTrav)
+        self.preOrder(subRoot, self.subTrav)
+        if ("".join(self.subTrav) in "".join(self.bigTrav)):
+            return True
+        return False
+    def preOrder(self, root, trav):
+        if (root == None):
+            trav.append("-")
+            return
+        self.preOrder(root.left, trav)
+        self.preOrder(root.right, trav)
+        trav.append(str(root.val)+".")
+        

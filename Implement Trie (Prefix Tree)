@@ -1,0 +1,52 @@
+#A trie (pronounced as "try") or prefix tree is a tree data structure used to efficiently store and retrieve keys in a dataset of strings. There are various applications of this data structure, such as autocomplete and spellchecker.
+class Node():
+    def __init__(self, letter = None):
+        self.letter = letter
+        self.nodes = {}
+
+class Trie:
+
+    def __init__(self):
+        self.root = Node()
+        
+    def insert(self, word: str) -> None:
+        word += "*"
+        current = self.root
+        for i in range(len(word)):
+            get_word = current.nodes.get(word[i])
+            if get_word:
+                current = get_word
+            else:
+                newNode = Node(word[i])
+                current.nodes[word[i]] = newNode
+                current = newNode
+        
+
+    def search(self, word: str) -> bool:
+        current = self.root
+        for i in range(len(word)):
+            get_word = current.nodes.get(word[i])
+            if get_word:
+                current = get_word
+            else:
+                return False
+        if (current.nodes.get("*")):
+            return True
+        
+
+    def startsWith(self, prefix: str) -> bool:
+        current = self.root
+        for i in range(len(prefix)):
+            get_word = current.nodes.get(prefix[i])
+            if get_word:
+                current = get_word
+            else:
+                return False
+        return True
+
+
+# Your Trie object will be instantiated and called as such:
+# obj = Trie()
+# obj.insert(word)
+# param_2 = obj.search(word)
+# param_3 = obj.startsWith(prefix)

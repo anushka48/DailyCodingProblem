@@ -14,4 +14,19 @@ class Solution(object):
         sorted_nums = sorted(nums_map.keys(), key = lambda num: nums_map.get(num), reverse = True)
         return sorted_nums[0:k]
     
-     
+
+
+# Heap approach
+# Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
+
+import heapq
+import numpy as np
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        freq = Counter(nums)
+        # print(freq)
+        tuples = []
+        for elem in freq.keys():
+            tuples.append([freq.get(elem), elem])
+        heap = heapq.nlargest(k, tuples)
+        return (np.array(heap)[:,1])

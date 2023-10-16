@@ -1,0 +1,27 @@
+# Given a binary search tree (BST), find the lowest common ancestor (LCA) node of two given nodes in the BST.
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    visited  = []
+    smol = 0
+    big = 0
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        self.smol = min(p.val, q.val)
+        self.big = max(p.val, q.val)
+        return self.recurse(root)
+
+    def recurse(self, root):
+        if (self.smol < root.val and self.big < root.val):
+            return self.recurse(root.left)
+        elif (self.smol > root.val and self.big > root.val):
+            return self.recurse(root.right)
+        else:
+            return root
+    
+    

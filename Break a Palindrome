@@ -1,0 +1,13 @@
+class Solution:
+    def breakPalindrome(self, palindrome: str) -> str:
+        for i in range(len(palindrome)):
+            if (palindrome[i] != 'a'):
+                palindrome2 = palindrome[0:i] + 'a' + palindrome[i+1:]
+                if not (palindrome2.count('a') == len(palindrome2)):
+                    return palindrome2
+                else:
+                    break
+        if (len(palindrome) > 1):
+            palindrome = palindrome[:len(palindrome)-1] + "b"
+            return palindrome
+        return ""

@@ -1,0 +1,13 @@
+import heapq
+def condenseArr(arr):
+    minCost = 0
+    print(arr)
+    heapq.heapify(arr)
+    print("heap: ", arr)
+    while (len(arr) != 1):
+        newNode = heapq.heappop(arr) + heapq.heappop(arr)
+        minCost += newNode
+        heapq.heappush(arr, newNode)
+    return minCost
+
+print(condenseArr([5, 3, 8, 2]))

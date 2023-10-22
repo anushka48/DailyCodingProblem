@@ -1,0 +1,16 @@
+#You are given a string sentence, consisting of words separated by spaces. Each word is a substring consisting of English alphabetic letters only. Your task is to find the first word in the sentence that has a length which is both an even number and greater than or equal to the length of any other word of even length in the sentence. If there are multiple words meeting the criteria, return the one which occurs first in the sentence.
+def longestEvenWord(sent):
+    words = sent.split(" ")
+    maxSize = 0
+    maxWord = ""
+    #If you find yourself constantly trying to prove your worth to someone, you have already forgotten your value. 
+    for word in words:
+        if len(word) % 2 == 0:
+            if len(word) > maxSize:
+                maxSize = len(word)
+                maxWord = word
+    return maxWord
+print(longestEvenWord("If you find yourself constantly trying to prove your worth to someone, you have already forgotten your value."))
+print(longestEvenWord("Time to write great code"))
+print(longestEvenWord("The sun sets at midnight"))
+print(longestEvenWord("This is an example"))

@@ -1,0 +1,38 @@
+# Highly Profitable Months
+# The Stocks of a company are being surveyed to analyse the net profit of the company over a period
+
+# For an analysis parameter k, an interval of k concutive months is said to be hightly profitable if the values of the stock prices are strictly increasing for those months. 
+# Given the stock prices of the company for n months and the analysis parameter k find the number of highly profitable intervals.
+# Example : stockPrices=[5,3,5,7,8], K=3
+# Here the answer is 2
+
+def highlyProfitableMonths(stockPrices, K):
+    # [5,3,5,7,8]
+    #  ^
+    last = False #F
+    lastN = stockPrices[0] #5
+    ptr = 0
+    numIntvl = 0
+    while (ptr+K <= len(stockPrices)):
+        if (not last):
+            last = checkAscending(stockPrices[ptr:ptr+K])
+            print(last)
+            if (last):
+                numIntvl += 1
+        else:
+            if (lastN < stockPrices[ptr]):
+                numIntvl += 1
+        lastN = stockPrices[ptr]
+        ptr+=1
+        
+    return numIntvl
+    
+def checkAscending(arr):
+    print("checkAscending on: ", arr)
+    ptr = 0
+    while (ptr < len(arr)-1 and arr[ptr] < arr[ptr+1]):
+        ptr += 1
+        continue
+        
+    return ptr == len(arr)-1
+                    

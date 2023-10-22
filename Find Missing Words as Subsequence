@@ -1,0 +1,11 @@
+# "I like cheese"
+# "I cheese"
+# ["I", "like", "cheese"]
+# ["I", "cheese"]
+def missingWords(s, t):
+    s_l = s.split(" ")
+    t_l = t.split(" ")
+    for word in t_l:
+        s_l.remove(word)
+    return s_l
+print(missingWords("I like my cheese on cheese", "I cheese"))

@@ -1,0 +1,32 @@
+#Consider a pair of intergers (a,b). The following operations can be performed on a,b in any order, zero or more times
+
+#* (a,b) -> (a+b,b)
+
+#*(a,b)-> (a,a+b)
+#Return a string that denotes whether or not (a,b) can be converted to (c,d) by performing the operation zero or more times
+
+
+import numpy as np
+table = []
+def update(a,b,c,d):
+#     global table
+    table[a][b] = 1
+    if (a,b) == (c,d):
+        return (True)
+    if a+b < len(table):
+        res = update(a+b, b, c,d)
+        
+    if a+b < len(table[0]):
+        res = update(a, a+b, c, d)
+        
+    return (None)
+        
+def ab(a,b,c,d):
+    global table 
+    table = np.empty((c+1,d+1))
+    res = update(a,b,c,d)
+    return (table[c][d] == 1)
+    return(res)
+    
+    
+print(ab(1,2,4,5))

@@ -1,0 +1,41 @@
+# A province is a group of directly or indirectly connected cities and no other cities outside of the group.
+# Given an adjacency matrix representation of the cities and their relations, return the total number of provinces.
+
+
+class Node:
+    def __init__(self, val):
+        self.val = val
+        self.nb = set() #neighbors
+
+class Solution:
+    hmap = None
+    visited = []
+    count = 0
+    def findCircleNum(self, isConnected: List[List[int]]) -> int:
+        self.visited = []
+        self.count = 0
+        self.hMap = dict()
+        for i in range(len(isConnected)):
+            self.hMap[i] = Node(i)
+
+        for i in range(len(isConnected)):
+            for j in range(len(isConnected[i])):
+                if (isConnected[i][j] == 1 and i != j):
+                    self.hMap[i].nb.add(j)  
+
+        for node in self.hMap.keys():
+            if node not in self.visited:
+                self.dfs(node)
+                self.count+=1
+        return self.count
+    
+    def dfs(self, node):
+        if node in self.visited:
+            return
+        self.visited.append(node)
+        for nb in self.hMap.get(node).nb:
+            self.dfs(nb)
+        
+        
+
+        

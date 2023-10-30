@@ -1,0 +1,44 @@
+class Node:
+    def __init__(self, val):
+        self.val = val
+        self.prereq = []
+
+class Solution(object):
+    visited = None
+    recStack = None
+    hmap = None
+    def canFinish(self, numCourses, prerequisites):
+        """
+        :type numCourses: int
+        :type prerequisites: List[List[int]]
+        :rtype: bool
+        """
+        self.hmap = dict()
+        self.visited = []
+        self.recStack = []
+        for c in range(numCourses):
+            self.hmap[c] = Node(c)
+
+        for p in prerequisites:
+            c = self.hmap.get(p[0])
+            c.prereq.append(self.hmap.get(p[1]))
+        
+        for key in self.hmap.keys():
+            if (self.isCycle(self.hmap.get(key))):
+                return False
+        return True
+        
+
+    def isCycle(self, graph):
+        if (graph.val in self.visited and graph.val in self.recStack):
+            return True
+        elif (graph.val in self.visited):
+            return False
+        self.visited.append(graph.val)
+        self.recStack.append(graph.val)
+        for p in self.hmap.get(graph.val).prereq:
+            if(self.isCycle(p)):
+                return True
+            
+        self.recStack.remove(graph.val)
+        return False

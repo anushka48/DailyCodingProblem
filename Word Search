@@ -1,0 +1,39 @@
+class Solution:
+    board = []
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        self.board = board
+        for i in range(len(board)):
+            for j in range(len(board[i])):
+                if (board[i][j] == word[0]):
+                    coord = [(i,j)]
+                    print("appending")
+                    if self.find(i,j,1,word, 1, coord):
+                        return True
+                    
+        return False
+    def find(self, i, j, word_idx, word, ctr, coord):
+        print("in find with: ", word[word_idx-1], "and ctr: ", ctr, "traversed: ", coord)
+        if (ctr == len(word)):
+            return True
+        ctr+=1
+        res = []
+        if (i + 1 < len(self.board)):
+            if (self.board[i+1][j] == word[word_idx] and (i+1, j) not in coord):
+                coord.append((i+1,j))
+                res.append(self.find(i+1, j, word_idx+1, word, ctr, coord))
+        if (i - 1 >= 0):
+            if (self.board[i-1][j] == word[word_idx] and (i-1, j) not in coord):
+                coord.append((i-1,j))
+                res.append(self.find(i-1, j, word_idx+1, word, ctr, coord)) 
+        if (j + 1 < len(self.board[i])):
+            if (self.board[i][j+1] == word[word_idx] and (i, j+1) not in coord):
+                coord.append((i,j+1))
+                res.append(self.find(i, j+1, word_idx+1, word, ctr, coord))
+        if (j - 1 >= 0):
+            if (self.board[i][j-1] == word[word_idx] and (i, j-1) not in coord):
+                coord.append((i,j-1))
+                res.append(self.find(i, j-1, word_idx+1, word, ctr, coord))
+        return any(res) 
+        
+            
+        

@@ -1,0 +1,23 @@
+def valid_word_abbreviation(word: str, abbr: str) -> bool:
+        abbr = list(abbr)
+        # write your code here
+        p = 0
+        p2 = 0
+        num = ""
+        while (p < len(word) and p2 < len(abbr)):
+            if (word[p] == abbr[p2]):
+                p+=1
+                p2+=1
+            else:
+                num = ""
+                if abbr[p2].isdigit():
+                    while p2 < len(abbr) and abbr[p2].isdigit():
+                        num+=abbr[p2]
+                        p2+=1
+                    num = int(num)
+                    p+=num
+                else:
+                    return False
+                
+        return (p == len(word) and p2 == len(abbr))
+print("return: ", valid_word_abbreviation("apple", "a2e"))

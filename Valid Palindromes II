@@ -1,0 +1,22 @@
+# Given a string s, return true if the s can be palindrome after deleting at most one character from it.
+class Solution:
+    def validPalindrome(self, s: str) -> bool:
+        #abccba
+        #abcba
+        left = 0
+        right = len(s) - 1
+        while (right != left and left < right):
+            if (not s[left] == s[right]):
+                s_left = s[0:right] + s[right+1:]
+                if (s_left == s_left[::-1]):
+                    return True
+                s_right = s[0:left] + s[left+1:]
+                if (s_right == s_right[::-1]):
+                    return True
+                else:
+                    return False
+            right-=1
+            left+=1
+        return True
+                
+        

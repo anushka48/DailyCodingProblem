@@ -1,0 +1,49 @@
+class Solution:
+    def calculate(self, s: str) -> int:
+        stack = list()
+        sym_1 = ['*', '/']
+        sym_2 = ['+', '-']
+        s = s.replace(" ", "")
+        ret = 0
+        i = 0
+        while i < len(s):
+            num = ""
+            if (s[i].isdigit()):
+                while i < len(s) and s[i].isdigit():
+                    num+=s[i]
+                    i+=1
+                num = int(num)
+                stack.insert(len(stack),num)
+                continue
+            else:
+                op = s[i]
+                if (op in sym_1):      
+                    left = stack.pop(len(stack)-1)
+                    num = ""
+                    while i+1 < len(s) and s[i+1].isdigit():
+                        num+=s[i+1]
+                        if (i+2 < len(s) and s[i+2].isdigit()):
+                            i+=1
+                        else:
+                            break
+                    right = int(num)
+                    if (op == "*"):
+                        stack.insert(len(stack), left * right)
+                    else:
+                        stack.insert(len(stack), left // right)
+                    i+=1
+                elif (op in sym_2):
+                    stack.insert(len(stack), op)
+            i+=1
+        if stack and len(stack) == 1:
+            return stack[0]
+        while len(stack)!=1:
+            left = stack.pop(0)
+            op = stack.pop(0)
+            right = stack.pop(0)
+            if op == "+":
+                ret = (left + right)
+            else:
+                ret = (left - right)
+            stack.insert(0, ret)
+        return stack[0]

@@ -1,0 +1,22 @@
+# Given a string s of '(' , ')' and lowercase English characters.
+
+# Your task is to remove the minimum number of parentheses ( '(' or ')', in any positions ) so that the resulting parentheses string is valid and return any valid string.
+class Solution:
+    def minRemoveToMakeValid(self, s: str) -> str:
+        chars = list()
+        for l in s:
+            chars.append(l)
+        par = list()
+        for i in range(len(chars)):
+            if chars[i] == ")":
+                if len(par) >= 1 and par[0][0] == "(":
+                    par.pop(0)
+                else:
+                    chars[i] = ""
+            if chars[i] == "(":
+                par.insert(0, (chars[i], i))
+        for e in par:
+            chars[e[1]] = ""
+        return "".join(chars)
+
+        

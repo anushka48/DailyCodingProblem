@@ -1,0 +1,29 @@
+# A sawtooth sequence is a sequence of numbers that alternate between increasing and decreasing. In other words, each element is either strictly greater than its neighbouring elements or strictly less than its neighbouring elements.
+# Given an array of integers arr, your task is to count the number of contiguous subarrays that represent a sawtooth sequence of at least two elements.
+def sign(a, b):
+    if (b-a == 0):
+        return 0
+    return (b-a)/abs(b-a)
+def solution(arr):
+    if (len(arr) < 2):
+        return 0
+    ret = 0
+    streak = 0 #0
+    prev = 0 #+1
+    for i in range(len(arr)-1):
+        curSign = sign(arr[i], arr[i+1])
+        if (curSign != prev and curSign != 0):
+            streak+=1
+            ret+=streak
+        elif (curSign == prev and curSign != 0):
+            streak = 1
+            ret+=streak
+        else:
+            streak = 0
+        prev = curSign
+    return ret 
+    
+# Explanation: Everytime you increase an existing sawtooth sequence, you're introuducing a new 2-element sequence, and also expanding the previous existing sequences (that appeared consecutively before). 
+# Thus, keep a streak counter and add it to #of seq if you add to existing streak. 
+# Otherwise, (for a nonzero difference) you're starting a new streak of length 2 so add to the # of seq.
+# Otherwise, (for zero difference), no sawtooth so don't add anything and restart streak.

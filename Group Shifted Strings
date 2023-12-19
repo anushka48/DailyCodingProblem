@@ -10,6 +10,6 @@ def groupShiftedStrings(strings: list) -> list:
             else:
                 diff.append(ord(s[i]) - ord(s[i-1]))
         groups[tuple(diff)].append(s)
-    return groups.values()
+    return list(groups.values())
 
 print(groupShiftedStrings(["abc", "bcd", "acef", "xyz", "az", "ba", "a", "z"]))        

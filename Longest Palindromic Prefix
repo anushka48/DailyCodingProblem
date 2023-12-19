@@ -1,0 +1,34 @@
+# https://www.geeksforgeeks.org/print-the-longest-palindromic-prefix-of-a-given-string/
+# You are given a string s. Consider the following algorithm applied to this string:
+
+# Take all the prefixes of the string, and choose the longest palindrome between them.
+# If this chosen prefix contains at least two characters, cut this prefix from s and go back to the first step with the updated string. Otherwise, end the algorithm with the current string s as a result.
+# Your task is to implement the above algorithm and return its result when applied to string s.
+def prefix(s):
+    return s==s[::-1]
+def solution(s):
+    if len(s) <= 1:
+        return s
+    pref = True
+    while pref:
+        maxPref = ""
+        outer = 2
+        curPref = s[0:outer]
+        pref = False
+        maxIdx = 0
+        while (outer < len(s)+1):
+            if (prefix(curPref)):
+                pref = True
+                if len(curPref) > len(maxPref):
+                    maxPref = curPref
+                    maxIdx = outer
+            outer+=1
+            curPref = s[0:outer]
+        print(maxPref)
+        print("maxIdx",maxIdx)
+        if (pref):
+            s = s[maxIdx:]
+    return s
+#Explanation: find the longest substring in the current string by subscription from 0 to end of string. If no palindrome found, break loop and return. If found, delete that longest palindromic prefix and run the loop again.
+            
+

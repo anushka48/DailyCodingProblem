@@ -1,0 +1,37 @@
+# Given the root of a binary tree, calculate the vertical order traversal of the binary tree.
+# The vertical order traversal of a binary tree is a list of top-to-bottom orderings for each column index starting from the leftmost column and ending on the rightmost column. There may be multiple nodes in the same row and same column. In such a case, sort these nodes by their values.
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+from collections import defaultdict 
+
+class Solution:
+    def verticalTraversal(self, root: Optional[TreeNode]) -> List[List[int]]:
+        ctr = 0
+        ctr_y = 0
+        coords = defaultdict(list)
+        coords[0].append((ctr_y, root.val))
+        def traverseTree(node, ctr, ctr_y):
+            if (node == None):
+                return
+            if (node.left):
+                coords[ctr - 1].append((ctr_y + 1, node.left.val))
+                traverseTree(node.left, ctr-1, ctr_y + 1)
+            if (node.right):
+                coords[ctr + 1].append((ctr_y + 1, node.right.val))
+                traverseTree(node.right, ctr+1, ctr_y + 1)               
+        traverseTree(root,ctr, ctr_y)
+        coords = sorted(coords.items(), key = lambda x:x[0])
+        ret = []
+        for e in coords:
+            e_sort = sorted(e[1], key = lambda x:(x[0], x[1]))
+            ret_sort = []
+            for i in e_sort:
+                ret_sort.append(i[1])
+            ret.append(ret_sort)
+        return(ret)
+        

@@ -1,0 +1,16 @@
+# Given two strings ransomNote and magazine, return true if ransomNote can be constructed by using the letters from magazine and false otherwise.
+
+# Each letter in magazine can only be used once in ransomNote.
+class Solution:
+    def canConstruct(self, ransomNote: str, magazine: str) -> bool:
+        rDict = Counter(ransomNote)
+        rMag = Counter(magazine)
+        for k in rDict.keys():
+            v = rDict.get(k)
+            vM = rMag.get(k)
+            if not vM or (vM and v > vM):
+                return False
+
+        return True
+
+        

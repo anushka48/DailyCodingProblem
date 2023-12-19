@@ -32,6 +32,15 @@ class Solution(object):
                 minEl = prices[i]
             maxProf = max(prices[i] - minEl, maxProf)
         return maxProf
+   # SOLUTION 3
+   def maxProfit(self, prices: List[int]) -> int:
+        prof = 0
+        r_max = 0
+        for i in range(len(prices)-1, -1, -1):
+            if (prices[i] > r_max):
+                r_max = prices[i]
+            prof = max(r_max - prices[i], prof)
+        return prof
 
             
         

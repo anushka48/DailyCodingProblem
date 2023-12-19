@@ -1,0 +1,14 @@
+from collections import defaultdict
+class Solution:
+    def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
+        idx_dict = defaultdict(list)
+        for i in range(len(nums)):
+            idx_dict[nums[i]].append(i)
+        for key in idx_dict.keys():
+            val = idx_dict[key]
+            if len(val) > 1:
+                val = sorted(val)
+                for i in range(len(val) - 1):
+                    if (abs(val[i] - val[i+1])) <= k:
+                        return True
+        return False

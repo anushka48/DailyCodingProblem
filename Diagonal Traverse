@@ -1,0 +1,26 @@
+# Given an m x n matrix mat, return an array of all the elements of the array in a diagonal order.
+
+
+from collections import defaultdict
+class Solution:
+    def findDiagonalOrder(self, mat: List[List[int]]) -> List[int]:
+        idx = defaultdict(list)
+        m = len(mat)
+        n = len(mat[0])
+        for i in range(m):
+            for j in range(n):
+                idx[i+j].append((i, j))
+        ret = []
+        for i in range(m+n):
+            cur = idx.get(i)
+            if (not cur):
+                break
+            if (i %2 == 0):
+                for i in range(len(cur)-1, -1, -1):
+                    ret.append(mat[cur[i][0]][cur[i][1]])
+            else:
+                for i in range(len(cur)):
+                    ret.append(mat[cur[i][0]][cur[i][1]])
+        return ret
+
+                    

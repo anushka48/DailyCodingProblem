@@ -1,0 +1,30 @@
+# You are given a 0-indexed array of positive integers w where w[i] describes the weight of the ith index.
+
+# You need to implement the function pickIndex(), which randomly picks an index in the range [0, w.length - 1] (inclusive) and returns it. The probability of picking an index i is w[i] / sum(w).
+from random import randint
+class Solution:
+
+    def __init__(self, w: List[int]):
+        self.w = w
+        self.ranges = []
+        last = 0
+        for i in range(len(w)):
+            self.ranges.append([last, last + w[i]])
+            last += w[i]
+
+    def pickIndex(self) -> int:
+        if len(self.w) == 1:
+            return 0
+        sumW = sum(self.w)
+        rand = randint(0, sumW-1)
+        for i in range(len(self.ranges)):
+            if self.ranges[i][0] <= rand and self.ranges[i][1] > rand:
+                return i
+        
+
+
+
+
+# Your Solution object will be instantiated and called as such:
+# obj = Solution(w)
+# param_1 = obj.pickIndex()

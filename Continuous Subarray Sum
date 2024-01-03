@@ -1,0 +1,48 @@
+# Given an integer array nums and an integer k, return true if nums has a good subarray or false otherwise.
+# A good subarray is a subarray where: its length is at least two, and the sum of the elements of the subarray is a multiple of k.
+# Note that:
+# A subarray is a contiguous part of the array.
+# An integer x is a multiple of k if there exists an integer n such that x = n * k. 0 is always a multiple of k.
+from collections import defaultdict
+class Solution:
+    def checkSubarraySum(self, nums: List[int], k: int) -> bool:
+        # Solution 1 - passes 94/99; O(n^2)
+        # prefSum = []
+        # runSum = 0
+        # # if (len(nums) <= 1):
+        #     # return False
+
+        # for i in range(len(nums)):
+        #     runSum+=nums[i]
+        #     if (runSum % k == 0 and i != 0):
+        #         return True
+        #     prefSum.append(runSum)
+        # print(5%6)
+        # for i in range(len(nums)):
+        #     j = i+2
+        #     while(j < len(nums)):
+        #         diff = (prefSum[j] - prefSum[i]) % k
+        #         # print("mod",0 % 6)
+        #         # print(i, j, prefSum[j], prefSum[i], diff)
+        #         if (diff == 0 or diff == k):
+        #             return True
+        #             j+=1
+        # return False
+        
+        # Solution 2
+        rem = defaultdict()
+        runSum = 0
+        rem[0] = -1
+        for i in range(len(nums)):
+            runSum += nums[i]
+            diff = runSum%k
+            if (rem.get(diff) != None):
+                if (i - rem.get(diff) >= 2):
+                    return True
+            else:
+                rem[diff] = i
+        return False
+
+        
+        
+        

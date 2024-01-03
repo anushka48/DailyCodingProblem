@@ -1,0 +1,39 @@
+Given an array of integers nums and an integer k, return the total number of subarrays whose sum equals to k.
+
+A subarray is a contiguous non-empty sequence of elements within an array.
+
+from collections import defaultdict
+class Solution:
+    def subarraySum(self, nums: List[int], k: int) -> int:  
+        # SOLUTION 1: TLE
+        # ctr = 0
+        # runSum = []
+        # runSum.append(0)
+        # curSum = 0
+        # for n in nums:
+        #     curSum += n
+        #     runSum.append(curSum)
+        # for i in range(len(runSum)-1, -1, -1):  m
+        #     for j in range(i):
+        #         if (runSum[i] - runSum[j] == k):
+        #             ctr+=1
+        # return ctr
+
+        # SOLUTION 2
+        pref = defaultdict(int)
+        ctr = 0
+        curSum = 0
+        for n in nums:
+            curSum += n
+            if curSum == k:
+                ctr+=1
+            if pref.get(curSum - k):
+                ctr += pref.get(curSum - k)
+            pref[curSum] += 1
+            
+        # for pk in pref.keys():
+            # if pk == k:
+                # ctr+=1
+        return ctr
+        
+

@@ -1,0 +1,29 @@
+# You are given an integer array nums and an integer k. Find the maximum subarray sum of all the subarrays of nums that meet the following conditions:
+
+# The length of the subarray is k, and
+# All the elements of the subarray are distinct.
+from collections import defaultdict
+class Solution:
+    def maximumSubarraySum(self, nums: List[int], k: int) -> int:
+        p1 = 0
+        p2 = k
+        curSum = sum(nums[0:k])
+        maxSum = 0
+        elem = Counter(nums[0:k])
+        if (len(elem) == k):
+            maxSum = curSum
+        while p2 < len(nums):
+            curSum -= nums[p1]
+            elem[nums[p1]]-=1
+            if (elem[nums[p1]] == 0):
+                del(elem[nums[p1]])
+            curSum += nums[p2]
+            elem[nums[p2]]+=1
+            if (maxSum < curSum and len(elem) == k):
+                maxSum = curSum
+            p1+=1
+            p2+=1
+            
+        return maxSum
+
+        

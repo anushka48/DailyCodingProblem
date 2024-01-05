@@ -1,0 +1,28 @@
+# There is a ball in a maze with empty spaces and walls. The ball can go through empty spaces by rolling up, down, left or right, but it won't stop rolling until hitting a wall. When the ball stops, it could choose the next direction.
+# Given the ball's start position, the destination and the maze, determine whether the ball could stop at the destination.
+# https://leetcode.ca/2017-04-03-490-The-Maze/
+def navMaze(maze, start, dest):    
+    q = list()
+    q.append(start)
+    maze[start[0]][start[1]] = 2
+    while (len(q)):
+        (x, y) = q.pop() # default at -1
+        for dr, dc in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+            r, c = x, y
+            while (0 <= r < len(maze) and 0 <= c < len(maze[0]) and maze[r][c] != 1):
+                r, c = r + dr, c + dc
+            r, c = r - dr, c - dc
+            if ((r,c) == dest):
+                return True
+            elif maze[r][c] != 2:
+                maze[r][c] = 2
+                q.append((r,c))
+    return False        
+                
+maze = [[0, 0, 1, 0 ,0],[0, 0, 0 ,0 ,0],[0, 0, 0, 1, 0],[1, 1, 0, 1, 1],[0, 0, 0, 0, 0]]
+print("sec:", navMaze(maze, (0, 4), (4, 4)))
+maze = [[0, 0, 1, 0 ,0],[0, 0, 0 ,0 ,0],[0, 0, 0, 1, 0],[1, 1, 0, 1, 1],[0, 0, 0, 0, 0]]
+print("first:", navMaze(maze, (0, 4), (3, 2)))
+
+
+

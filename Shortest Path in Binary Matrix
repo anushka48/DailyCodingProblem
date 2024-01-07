@@ -1,0 +1,37 @@
+# Given an n x n binary matrix grid, return the length of the shortest clear path in the matrix. If there is no clear path, return -1.
+from queue import Queue
+from collections import defaultdict
+class Solution:
+    def shortestPathBinaryMatrix(self, grid: List[List[int]]) -> int:
+        n = len(grid)
+        direc = [(1, 1), (0,1), (1, 0),  (-1, -1), (0,-1), (-1, 0), (1, -1), (-1, 1)]
+        # [0,0,0,0,1],
+        # [1,0,0,0,0],
+        # [0,1,0,1,0],
+        # [0,0,0,1,1],
+        # [0,0,0,1,0],
+        if (grid[0][0] != 0 or grid[n-1][n-1] != 0):
+            return -1
+        q = Queue()
+        q.put((0,0,0))
+        v = defaultdict()
+        while(not q.empty()):
+            x, y, ctr = q.get()
+            v[(x, y)] = 1
+            ctr+=1
+            if ((x, y) == (n-1, n-1)):
+                return ctr
+            for dr, dc in direc:
+                r, c = x, y
+                r, c = r + dr, c + dc
+                if 0 <= r < n and 0 <= c < n and grid[r][c] == 0 and v.get((r, c)) == None:
+                    q.put((r,c,ctr))
+        
+        return -1 
+        
+
+        
+        
+    
+
+        

@@ -1,0 +1,27 @@
+# Return the total sum of all root-to-leaf numbers. Test cases are generated so that the answer will fit in a 32-bit integer.
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    total = 0
+    def sumNumbers(self, root: Optional[TreeNode]) -> int:
+        #DFS where if l & r is null (leaf), add to counter
+        #recursive DFS 
+        #     1
+        #   /   \
+        # 2       3
+        def rootToLeaf(cur, prev):
+            # nonlocal total
+            prev += str(cur.val) #13
+            if (cur.left == None and cur.right == None):
+                # print(total)
+                self.total += int(prev)
+            if (cur.left): 
+                rootToLeaf(cur.left, prev)
+            if (cur.right):
+                rootToLeaf(cur.right, prev)
+        rootToLeaf(root, "")
+        return self.total

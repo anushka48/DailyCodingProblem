@@ -55,3 +55,31 @@ class LRUCache(object):
 # obj = LRUCache(capacity)
 # param_1 = obj.get(key)
 # obj.put(key,value)
+
+# SOLUTION 2: SIMPLER
+# Design a data structure that follows the constraints of a Least Recently Used (LRU) cache.
+from collections import OrderedDict
+
+class LRUCache:
+    def __init__(self, capacity: int):
+        self.cap = capacity 
+        self.cache = OrderedDict() 
+    def get(self, key: int) -> int:
+        if self.cache.get(key) != None:
+            self.cache.move_to_end(key, last = False)
+            return self.cache.get(key)
+        else:
+            return -1
+    def put(self, key: int, value: int) -> None:
+        self.cache[key] = value
+        # move inserted key to begin
+        self.cache.move_to_end(key, last = False)
+        if (len(self.cache) > self.cap):
+            # pop lifo from end, last in order of insertion
+            self.cache.popitem(last = True)
+        
+
+# Your LRUCache object will be instantiated and called as such:
+# obj = LRUCache(capacity)
+# param_1 = obj.get(key)
+# obj.put(key,value)

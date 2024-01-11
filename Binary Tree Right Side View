@@ -1,0 +1,22 @@
+# Given the root of a binary tree, imagine yourself standing on the right side of it, return the values of the nodes you can see ordered from top to bottom.
+
+class Solution:
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+        # rightmost member of every level
+        view = []
+        if (root == None):
+            return view
+        q = Queue()
+        q.put([root])
+        while (not q.empty()):
+            cur = q.get()
+            view.append(cur[len(cur)-1].val) 
+            lvl = [] 
+            for c in cur:
+                if (c.left):
+                    lvl.append(c.left)
+                if (c.right):
+                    lvl.append(c.right)
+            if (len(lvl)):
+                q.put(lvl)
+        return view

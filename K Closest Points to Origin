@@ -1,0 +1,17 @@
+# Given an array of points where points[i] = [xi, yi] represents a point on the X-Y plane and an integer k, return the k closest points to the origin (0, 0).
+import heapq
+class Solution:
+    def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
+        # min heap of (dist, coord tuple)
+        # nsmallest
+        dist = []
+        for p in points:
+            dist.append((sqrt(math.pow(p[0], 2) + math.pow(p[1], 2)), p))
+        heapq.heapify(dist)
+        ctr = 0
+        out = []
+        while ctr < k:
+            out.append(heappop(dist)[1])
+            ctr+=1
+        return out
+        

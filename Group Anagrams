@@ -17,3 +17,11 @@ class Solution(object):
                 hashMap["".join(sorted(string))] = [string]
         return hashMap.values()
         
+# SOLUTION 2: defaultdict
+from collections import defaultdict
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        d = defaultdict(list)
+        for s in strs:
+            d["".join(sorted(s))].append(s)
+        return d.values()

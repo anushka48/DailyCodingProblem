@@ -33,7 +33,7 @@ l_sorted = sorted(l, key = lambda <fxn>, reverse = True | False)
 #### sort: IS in-place from list class, only works on lists
 l.sort(reverse = True | False, key = lambda x: <fxn>)
 
-## Heap
+## heapq
 #### Import
 import heapq
 #### Build

@@ -9,13 +9,18 @@ class Solution:                 #5
             x = 1/x
         curX = x #0.25
         def double():
+            nonlocal m
+            nonlocal curX
             if (m*2 <= n):
                 curX*=curX
                 m*=2 
                 double()
             else:
                 return
+        double()
         return curX * math.pow(x, n-m)
         # 3 -> 9 -> 81 -> 81*8 ; 256 * 2 = 512 * 2 = 1024
         # 1    2    4     8     9         10
+
+
 

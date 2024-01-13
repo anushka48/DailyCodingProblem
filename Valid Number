@@ -1,0 +1,8 @@
+# Check if a given string evaluates to a valid number (could be exponent, decimal, etc.)
+import re
+class Solution:
+    def isNumber(self, s: str) -> bool:
+        pattern = "^[\+\-]?(\d+\.?\d*|\d*\.?\d+)([eE][\+\-]?\d+)?$"
+        prog = re.compile(pattern)
+        # print(re.fullmatch(pattern, s))
+        return re.fullmatch(pattern, s) != None

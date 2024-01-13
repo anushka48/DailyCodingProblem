@@ -1,0 +1,27 @@
+# Given a nested list of integers, return the sum of all integers in the list weighted by their depth.
+
+from typing import List
+def weightSum(nums: List) -> int:
+    stack = [] #"[", 
+    ret = 0 #2
+    i = 0
+    nums = str(nums).replace(" ", "")
+    while i < len(nums):
+        if nums[i] == "[":
+            stack.append("[")
+        elif nums[i] == "]":
+            stack.pop()
+        else:
+            op = "" #2
+            while nums[i] != "," and nums[i] != "]":
+                op+=(nums[i])
+                i+=1
+            if (len(op) != 0):
+                i-=1
+                op = int(op)
+                ret += op*len(stack)
+        i+=1
+    return ret
+print(weightSum([1,[4,[6]]]))
+
+    

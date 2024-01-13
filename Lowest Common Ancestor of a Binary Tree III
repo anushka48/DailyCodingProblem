@@ -1,0 +1,40 @@
+# Given two nodes of a binary tree p and q, return their lowest common ancestor (LCA).
+
+# Each node will have a reference to its parent node.
+class Node:
+    def __init__(self, value: int):
+        self.val = value
+        self.left = None
+        self.right = None
+        self.parent = None
+
+
+def lca(p, q):
+    par = []
+    # while either have a parent;
+    while (p or q):
+        if (p): 
+            if (p.val in par):
+                return p.val
+            par.append(p.val)
+            p = p.parent
+        if (q):
+            if (q.val in par):
+                return q.val
+            par.append(q.val)
+            q = q.parent
+#   1
+# 2   3
+#4 5
+root = Node(1)
+root.left = Node(2)
+root.left.parent = root
+root.right = Node(3)
+root.right.parent = root
+root.left.left = Node(4)
+root.left.left.parent = root.left
+root.left.right = Node(5)    
+root.left.right.parent = root.left    
+print(lca(root.left.left, root.left))
+
+    

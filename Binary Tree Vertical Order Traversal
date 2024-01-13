@@ -28,4 +28,28 @@ class Solution:
         for e in coords:
             ret.append(e[1])
         return(ret)
-        
+# Same solution, just redid for confidence
+class Solution:
+    """
+    @param root: the root of tree
+    @return: the vertical order traversal
+    """
+    def vertical_order(self, root: TreeNode) -> List[List[int]]:
+        # write your code here
+        coord = defaultdict(list) # -2:[3], -1:[1], 0:[0,5,6],1:[2], 2:[4]
+        def traverse(root, ctr):
+            if (root == None): 
+                return
+            print("ctr", ctr, root.val)
+            coord[ctr].append(root.val)
+            print("here", coord[ctr])
+            if (root.left):
+                traverse(root.left, ctr-1)
+            if (root.right):
+                traverse(root.right, ctr+1)
+        traverse(root, 0)
+        coord = sorted(coord.items()) #by default, sorts by key
+        ret = []
+        for c in coord:
+            ret.append(c[1])
+        return ret

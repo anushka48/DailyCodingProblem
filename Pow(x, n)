@@ -1,0 +1,21 @@
+# Implement pow(x, n), which calculates x raised to the power n (i.e., xn).
+class Solution:                 #5
+    def myPow(self, x: float, n: int) -> float:
+        m = 1 #2
+        if (n == 0):
+            return 1
+        if (n < 0):
+            n = abs(n)
+            x = 1/x
+        curX = x #0.25
+        def double():
+            if (m*2 <= n):
+                curX*=curX
+                m*=2 
+                double()
+            else:
+                return
+        return curX * math.pow(x, n-m)
+        # 3 -> 9 -> 81 -> 81*8 ; 256 * 2 = 512 * 2 = 1024
+        # 1    2    4     8     9         10
+

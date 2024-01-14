@@ -1,0 +1,24 @@
+# Return the exclusive time of each function in an array, where the value at the ith index represents the exclusive time for the function with ID i.
+
+
+class Solution:
+    def exclusiveTime(self, n: int, logs: List[str]) -> List[int]:
+        logDict = defaultdict(list)
+        stack = []
+        times = [0]*n
+        prev = 0
+        for i in range(len(logs)):
+            # print(stack)
+            logList = logs[i].split(":") #[1,"start",2]
+            logList[2] = int(logList[2])
+            logList[0] = int(logList[0])
+            if (logList[1] == "start"):
+                if (len(stack)):
+                    times[stack[-1][0]] += (logList[2] - prev)
+                prev = logList[2] 
+                stack.append(logList)
+            else:
+                start = stack.pop()
+                times[start[0]] += (logList[2] - prev + 1)
+                prev = logList[2] + 1
+        return (times)

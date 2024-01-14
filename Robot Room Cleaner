@@ -1,0 +1,57 @@
+# Given a robot cleaner in a room modeled as a grid.
+# Each cell in the grid can be empty or blocked.
+# Design an algorithm to clean the entire room using only the 4 given APIs shown below.
+# The robot cleaner with 4 given APIs can move forward, turn left or turn right. Each turn it made is 90 degrees.
+
+from collections import defaultdict
+class Robot:
+    def move(self):
+       """
+       Returns true if the cell in front is open and robot moves into the cell.
+       Returns false if the cell in front is blocked and robot stays in the current cell.
+       :rtype bool
+       """
+
+    def turnLeft(self):
+       """
+       Robot will stay in the same cell after calling turnLeft/turnRight.
+       Each turn will be 90 degrees.
+       :rtype void
+       """
+
+    def turnRight(self):
+       """
+       Robot will stay in the same cell after calling turnLeft/turnRight.
+       Each turn will be 90 degrees.
+       :rtype void
+       """
+
+    def clean(self):
+        """
+        Clean the current cell.
+        :rtype void
+        """
+class Solution:
+    def cleanRoom(self, robot):
+        vis = defaultdict()
+        dirs = [(-1,0), (0, 1), (1,0), (0, -1)]
+        def back(): 
+            robot.turnRight()
+            robot.turnRight()
+            robot.move()
+            robot.turnRight()
+            robot.turnRight()
+
+        def DFS(x,y,d):
+            vis[(x,y)] = 1
+            robot.clean()
+            for i in range(len(dirs)):
+                newD = (d + i) % 4
+                newX = x + dirs[newD][0]
+                newY = y + dirs[newD][1]
+                if (robot.move() and vis.get((newX,newY)) == None):
+                    DFS(newX, newY, newD)
+                    back()
+                robot.turnRight()
+        DFS(0,0,0)
+                

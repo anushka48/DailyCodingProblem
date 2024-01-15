@@ -1,0 +1,24 @@
+# Given the root node of a binary search tree and two integers low and high, return the sum of values of all nodes with a value in the inclusive range [low, high].
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
+        sumNodes = 0 #32
+        def iterate(root, low, high):
+            nonlocal sumNodes
+            if (root == None):
+                return
+            if (low <= root.val <= high):
+                sumNodes+=root.val
+                iterate(root.right, low, high)
+                iterate(root.left, low, high)
+            elif (root.val < low):
+                iterate(root.right, low, high)
+            elif (root.val > high):
+                iterate(root.left, low, high)
+        iterate(root, low, high)
+        return sumNodes

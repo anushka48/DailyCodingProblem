@@ -50,3 +50,16 @@ heapq.nsmallest(n, list1) # returns list; NOTE: this will be sorted but indexing
 heapq.nlargest(n, list1) 
 
 list(heapq.merge(list1, list2) # will merge two sorted lists and return them as a list
+
+## unpack
+
+*list or *str will unpack the iterable into individual elements.
+
+ex) l = [1,2,3] so *l will yield 1,2,3
+
+s = "app", so [*s] = ["a","p","p"]
+
+**dict will unpack the dictionary into its keys
+
+ex) d = {1:a, 2:b, 3:c} so **d will yield a,b,c
+

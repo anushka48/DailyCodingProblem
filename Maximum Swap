@@ -1,0 +1,40 @@
+You are given an integer num. You can swap two digits at most once to get the maximum valued number.
+
+Return the maximum valued number you can get.
+
+class Solution:
+    def maximumSwap(self, num: int) -> int:
+        # non increasing? no swap
+        #2222,7523
+        # increasing somewhere? swap
+        #5723 swap first with highest
+        #98368
+        #10909091
+        #8090
+        def findMax(sNum, s, e):
+            maxNum = "0"
+            maxIdx = -1
+            for i in range(s, e):
+                if sNum[i] >= maxNum:
+                    maxNum = sNum[i]
+                    maxIdx = i
+            return maxIdx
+            
+        def findMin(sNum, s, maxNum):
+            minNum = sNum[s]
+            minIdx = s
+            for i in range(s, -1, -1):
+                if (sNum[i] < maxNum):
+                    minNum = sNum[i]
+                    minIdx = i
+            return minIdx
+
+        sNum = [*str(num)]
+
+        for i in range(len(sNum)-1):
+            if (sNum[i] < sNum[i+1]):
+                maxIdx = findMax(sNum, i+1, len(sNum))
+                minIdx = findMin(sNum, i, sNum[maxIdx])
+                sNum[maxIdx], sNum[minIdx] = sNum[minIdx], sNum[maxIdx]
+                break
+        return int("".join(sNum))

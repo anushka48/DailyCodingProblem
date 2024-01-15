@@ -1,0 +1,48 @@
+# Convert a BST to a sorted circular doubly-linked list in-place. Think of the left and right pointers as synonymous to the previous and next pointers in a doubly-linked list.
+class Node:
+    def __init__(self, value: int):
+        self.val = value
+        self.left = None
+        self.right = None
+        
+def toLinkedList(tree: Node) -> Node:
+    last = None
+    newH = None
+    def inOrder(root):
+        nonlocal last
+        nonlocal newH
+        if (root == None):
+            return
+        inOrder(root.left)
+
+        if (last == None):
+            newH = root
+        else:
+            root.left = last
+            last.right = root
+        last = root
+
+        inOrder(root.right)
+        return root
+
+    inOrder(tree)
+
+    if (last):
+        last.right = newH
+    if (newH):
+        newH.left = last
+    return newH
+    
+n1 = Node(1)
+n2 = Node(2)
+n3 = Node(3)
+n4 = Node(4)
+n5 = Node(5)
+n4.left = n2
+n4.right = n5
+n2.left = n1
+n2.right = n3
+ret = (toLinkedList(n4))
+while (ret and ret != n5):
+    print(ret.left.val, ret.val, ret.right.val)
+    ret = ret.right    

@@ -1,0 +1,34 @@
+# Given a sorted integer array nums, where the range of elements are in the inclusive range [lower, upper], return its missing ranges.
+
+from typing import List
+def getRange(begin, end) -> str:
+    if (begin == end):
+        return str(begin)
+    else:
+        return str(begin) + "->" + str(end)
+
+def insertRanges(nums, lower, upper) -> List:
+    out = []
+    i = 0
+
+    while i < len(nums)-1:
+        if (nums[i] < lower and nums[i+1] >= lower):
+            out.append(getRange(lower, nums[i+1]-1))
+        elif lower <= nums[i] <= upper and nums[i+1] <= upper:
+            if (nums[i] + 1 < nums[i+1]):
+                out.append(getRange(nums[i]+1, nums[i+1]-1))
+        elif nums[i+1] > upper:
+            break
+        i+=1
+        
+    print(i)
+    if (nums[i] < upper):
+        print(upper)
+        out.append(getRange(nums[i]+1, upper))
+    return out
+        #
+nums = [0, 1, 3, 50, 75, 102, 105]
+lower = 5 
+upper = 103
+# Output: ["2", "4->49", "51->74", "76->99"]
+print(insertRanges(nums, lower, upper))

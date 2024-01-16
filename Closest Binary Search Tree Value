@@ -1,0 +1,37 @@
+# Given a non-empty binary search tree and a target value, find the value in the BST that is closest to the target.
+
+class TreeNode():
+    def __init__(self, value):
+        self.val = value
+        self.left = None
+        self.right = None
+
+def closestBTSVal(root: TreeNode, value: float):
+    minDiff = float("inf")
+    minNum = root.val
+    def trav(root, value):
+        nonlocal minDiff
+        nonlocal minNum
+        if (root == None):
+            return
+        if (abs(root.val - value) < minDiff):
+            minDiff = abs(root.val - value)
+            minNum = root.val
+        if (root.val > value):
+            trav(root.left, value)
+        else:
+            trav(root.right, value)
+    trav(root, value)
+    return minNum
+
+n1 = TreeNode(1)
+n2 = TreeNode(2)
+n3 = TreeNode(3)
+n4 = TreeNode(4)
+n5 = TreeNode(5)
+n4.left = n2
+n4.right = n5
+n2.left = n1
+n2.right = n3
+print(closestBTSVal(n4, 2.3))
+

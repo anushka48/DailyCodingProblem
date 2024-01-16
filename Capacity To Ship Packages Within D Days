@@ -1,0 +1,31 @@
+# Return the least weight capacity of the ship that will result in all the packages (weights array) on the conveyor belt being shipped within 'days' days.
+
+class Solution:
+    def shipWithinDays(self, weights: List[int], days: int) -> int:
+        # given a maxWeight, how many days to ship?
+        def shipDays(weights, maxWeight) -> int:
+            numDays = 0 #1
+            curSum = 0
+            for i in range(len(weights)):
+                if (curSum + weights[i] <= maxWeight):
+                    curSum += weights[i]
+                else:
+                    numDays += 1
+                    curSum = weights[i]
+            return numDays + 1
+
+        start = max(weights) #2
+        end = sum(weights) #7
+        minWeight = float("inf") #20
+
+        while (start <= end):
+            mid = (start + end) // 2 #14
+            curDays = shipDays(weights, mid)
+            if (curDays <= days):
+                if (mid < minWeight):
+                    minWeight = mid
+                end = mid - 1
+            elif (curDays > days):
+                start = mid + 1
+
+        return minWeight                

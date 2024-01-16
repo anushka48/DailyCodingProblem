@@ -63,3 +63,6 @@ s = "app", so [*s] = ["a","p","p"]
 
 ex) d = {1:a, 2:b, 3:c} so **d will yield a,b,c
 
+## random
+random.randint(inclusiveLowerBound, inclusiveUpperBound) #returns int between bounds
+random.choice(listToPickFrom) #returns an element of the input list

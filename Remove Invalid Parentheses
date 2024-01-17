@@ -1,0 +1,27 @@
+from queue import Queue
+class Solution:
+    def removeInvalidParentheses(self, s: str) -> List[str]:
+        def isValid(s: str):
+            ctr = 0
+            for l in s:
+                if (l == "("):
+                    ctr += 1
+                elif (l == ")"):
+                    ctr -= 1
+                if (ctr < 0):
+                    return False
+            return ctr == 0
+        q = Queue()
+        q.put([s])
+        res = set()
+        while (len(res) == 0):
+            level = set()
+            cur = q.get()
+            for string in cur:
+                if (isValid(string)):
+                    res.add(string)
+                    continue
+                for i in range(len(string)):
+                    level.add(string[:i] + string[i+1:])
+            q.put(level)
+        return res

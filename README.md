@@ -1,7 +1,7 @@
 # DailyCodingProblem + My Notes
 ## A Collection of Technical Questions
 
-This is my effort to continuously practive technical questions and further my understanding of data structures and algorithms.
+This is my effort to continuously practive technical questions and further my understanding of data structures and algorithms. Below are my lessons on Python as I complete this problems.
 
 ## Ordered Dict
 #### import

@@ -68,13 +68,6 @@ class NestedInteger(object):
        Return None if this NestedInteger holds a single integer
        :rtype List[NestedInteger]
        """
-
-# SOLUTION 3: Given integers and no interface
-# Given a nested list of integers, return the sum of all integers in the list weighted by their depth.
-# Each element is either an integer, or a list -- whose elements may also be integers or other lists.
-# 1,1
-# [[1,1],2,[1,1]]
-# 2
 def weightNestedList(nestList: NestedInteger) -> int:
     wSum = 0
     q = list()
@@ -89,6 +82,27 @@ def weightNestedList(nestList: NestedInteger) -> int:
         level += 1
         
     return wSum
+# SOLUTION 3: Given integers and no interface
+# Given a nested list of integers, return the sum of all integers in the list weighted by their depth.
+# Each element is either an integer, or a list -- whose elements may also be integers or other lists.
+from typing import List
+def nestedListWeightSum(weights: List[List[int]]) -> int:
+    level = 1
+    wSum = 0
+    q = weights
+    while (len(q)):
+        cur = q
+        q = []
+        for c in cur:
+            if (type(c) == int):
+                wSum += level * c
+            else:
+                q.extend(c)
+        level += 1
+    return wSum
+
+print(nestedListWeightSum([-1,[-4,[-6]]]))
+
 
 
 

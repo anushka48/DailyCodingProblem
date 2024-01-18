@@ -41,6 +41,14 @@ class Solution(object):
                 r_max = prices[i]
             prof = max(r_max - prices[i], prof)
         return prof
-
-            
+# SOLUTION 4: Most clear
+    def maxProfit(self, prices: List[int]) -> int:
+        # [7,1,5,3,6,4]
+        maxSell = 0
+        maxProf = 0
+        for i in range(len(prices)-1, -1, -1):
+            maxProf = max(maxSell - prices[i], maxProf)
+            maxSell = max(prices[i], maxSell)
+        return maxProf
+      
         

@@ -1,3 +1,4 @@
+SOLUTION 0: Given a string
 # Given a nested list of integers, return the sum of all integers in the list weighted by their depth.
 
 from typing import List
@@ -24,6 +25,7 @@ def weightSum(nums: List) -> int:
     return ret
 print(weightSum([1,[4,[6]]]))
 
+# SOLUTION 2: Given int arrays + interface
 # """
 # This is the interface that allows for creating nested lists.
 # You should not implement it, or speculate about its implementation
@@ -67,6 +69,7 @@ class NestedInteger(object):
        :rtype List[NestedInteger]
        """
 
+# SOLUTION 3: Given integers and no interface
 # Given a nested list of integers, return the sum of all integers in the list weighted by their depth.
 # Each element is either an integer, or a list -- whose elements may also be integers or other lists.
 # 1,1

@@ -44,3 +44,15 @@ class Solution(object):
                 cost+=costs[i][1]
 
         return cost
+
+# SOLUTION 2 - NLOGN - Simpler
+    def twoCitySchedCost(self, costs: List[List[int]]) -> int:
+        ASum = 0  #259
+        BSum = 0  #118 + 54 + 667
+        costs.sort(key = lambda x : (x[0] - x[1]))
+        for i in range(len(costs)):
+            if i < len(costs)/2:
+                ASum += costs[i][0]
+            else:
+                BSum += costs[i][1]
+        return ASum + BSum

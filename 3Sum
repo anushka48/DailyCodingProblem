@@ -1,0 +1,25 @@
+class Solution:      # [-1,0,1,2,-1,-4]
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        triplets = [] 
+        nums.sort()
+        for i in range(len(nums)-2):
+            if (i > 0 and nums[i-1] == nums[i]):
+                continue
+            cur = nums[i] #-4
+            p1 = i+1 #1
+            p2 = len(nums)-1 #5
+            while (p1 < p2):
+                curSum = nums[p1] + nums[p2] + cur #-2
+                t = [nums[p1], nums[p2], cur]
+                if (curSum == 0):
+                    triplets.append(t)
+                    while (p1 < p2 and t[0] == nums[p1]):
+                        p1+=1 
+                    while (p1 < p2 and t[1] == nums[p2]):
+                        p2-=1
+                if (curSum < 0):
+                    p1 += 1
+                else:
+                    p2 -= 1
+        return triplets
+         

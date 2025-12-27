@@ -1,0 +1,7 @@
+# Dynamic Programming solution that initializes the default/base fibonacci numbers and then builds up the sequence by adding the two previous iteratively.
+class Solution:
+    def fib(self, n: int) -> int:
+        seq = [0,1]
+        for i in range(2, n+1):
+            seq.append(seq[i-1] + seq[i-2])
+        return seq[n]
